@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:weather_test/model/weather_model.dart';
 
 Future<Weather?> fetchWeather(double lat, double lon) async {
-  const apiKey = '7650aedf73f5ec70df8e749f2695c14e';
+  const apiKey = '';
   final url = Uri.parse(
     'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey',
   );

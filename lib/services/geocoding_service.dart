@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<Map<String, double>?> getCoordinates(String cityName) async {
-  const apiKey = '7650aedf73f5ec70df8e749f2695c14e'; // replace with your OpenWeatherMap key
+  const apiKey = ''; // replace with your OpenWeatherMap key
   final url = Uri.parse(
     'https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=1&appid=$apiKey',
   );
