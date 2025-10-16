@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<Map<String, double>?> getCoordinates(String cityName) async {
-  const apiKey = ''; // replace with your OpenWeatherMap key
+  final apiKey = dotenv.env['API_KEY'];
   final url = Uri.parse(
     'https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=1&appid=$apiKey',
   );
