@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_test/services/api_service.dart';
+import 'package:weather_test/controller/weather_controller.dart';
 import 'package:weather_test/model/weather_model.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -12,25 +12,22 @@ class WeatherScreen extends StatefulWidget {
 class _WeatherScreenState extends State<WeatherScreen> {
   Weather? _weather;
   bool _loading = false;
+  late final WeatherController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = WeatherController();
     _getWeatherFromLocation();
   }
 
   Future<void> _getWeatherFromLocation() async {
     setState(() => _loading = true);
-    final weather = await fetchWeatherFromCurrentLocation();
+    final weather = await _controller.fetchWeatherFromCurrentLocation(context);
     setState(() {
       _weather = weather;
       _loading = false;
     });
-    if (weather == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not get location or weather')),
-      );
-    }
   }
 
   @override
