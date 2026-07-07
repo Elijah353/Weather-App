@@ -6,8 +6,8 @@ class Coord {
 
   factory Coord.fromJson(Map<String, dynamic> json) {
     return Coord(
-      lon: (json['lon']).toDouble(),
-      lat: (json['lat']).toDouble(),
+      lon: (json['lon'] ?? 0).toDouble(),
+      lat: (json['lat'] ?? 0).toDouble(),
     );
   }
 }
@@ -22,6 +22,7 @@ class Weather {
   final double tempMax;
   final double pressure;
   final int humidity;
+  final int visibility;
   final double windSpeed;
   final String cityName;
   final DateTime sunrise;
@@ -39,6 +40,7 @@ class Weather {
     required this.tempMax,
     required this.pressure,
     required this.humidity,
+    required this.visibility,
     required this.windSpeed,
     required this.cityName,
     required this.sunrise,
@@ -60,6 +62,7 @@ class Weather {
       tempMin: (json['main']['temp_min'] ?? 0).toDouble(),
       tempMax: (json['main']['temp_max'] ?? 0).toDouble(),
       pressure: (json['main']['pressure'] ?? 0).toDouble(),
+      visibility: json['visibility'] ?? 0,
       sunrise: json['sys']['sunrise'] != null
           ? DateTime.fromMillisecondsSinceEpoch(json['sys']['sunrise'] * 1000)
           : DateTime.now(),
@@ -70,6 +73,30 @@ class Weather {
       coord: json['coord'] != null
           ? Coord.fromJson(json['coord'])
           : Coord(lon: 0, lat: 0),
+    );
+  }
+
+  Weather copyWith({
+    String? cityName,
+    String? country,
+  }) {
+    return Weather(
+      mainCondition: mainCondition,
+      description: description,
+      icon: icon,
+      temperature: temperature,
+      feelsLike: feelsLike,
+      tempMin: tempMin,
+      tempMax: tempMax,
+      pressure: pressure,
+      humidity: humidity,
+      visibility: visibility,
+      windSpeed: windSpeed,
+      cityName: cityName ?? this.cityName,
+      sunrise: sunrise,
+      sunset: sunset,
+      country: country ?? this.country,
+      coord: coord,
     );
   }
 }
